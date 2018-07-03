@@ -1,0 +1,35 @@
+# Mac Finder
+.DS_Store
+
+# Maven 
+target/
+build/
+
+# Java
+*.class
+
+# Package
+*.jar
+*.war
+*.ear
+
+# IDE
+.classpath
+.project
+.settings/
+.idea/
+*.iml
+.externalToolBuilders
+
+# Spring
+.springBeans
+
+# Testing
+test-output
+
+# logging
+logs/
+log/
+
+# Binary folder
+bin/
