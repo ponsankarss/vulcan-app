@@ -8,17 +8,8 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd  
 	    http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd  ">
 
-	<context:component-scan
-		base-package="com.walmartlabs.services.*" />
-
 	<import resource="classpath*:META-INF/cxf/cxf.xml" />
 
-	<bean id="service"
-		class="com.walmartlabs.services.api.ServiceImpl" />
-
-	<jaxrs:server address="/services">
-		<jaxrs:serviceBeans>
-			<ref bean="service" />
-		</jaxrs:serviceBeans>
+	<jaxrs:server address="/services/v1">
 	</jaxrs:server>
 </beans>
