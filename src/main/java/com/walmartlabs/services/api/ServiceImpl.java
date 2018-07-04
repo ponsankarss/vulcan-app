@@ -21,7 +21,9 @@ import com.walmartlabs.services.http.HttpClientPoolManager;
  *
  */
 public class ServiceImpl implements Service {
-	public static final String url = "https://developer.api.stg.walmart.com/api-proxy/service/tracking/vulcan-app/v1/carrier-tracking-update/easypost/";
+	public static final String urlStg = "https://developer.api.stg.walmart.com/api-proxy/service/tracking/vulcan-app/v1/carrier-tracking-update/easypost/";
+	public static final String urlProd = "https://developer.api.walmart.com/api-proxy/service/tracking/vulcan-app/v1/carrier-tracking-update/easypost/";
+
 	public static final String consumerIdStg = "a2a1dc43-c177-4e84-a4be-5bc337bb7bcd";
 	public static final String consumerIdProd = "72848c5e-30eb-4e0b-b779-ac163cf65565";
 
@@ -37,13 +39,29 @@ public class ServiceImpl implements Service {
 	}
 
 	@Override
-	public Response trackingUpdate(String accountName, String body) {
+	public Response trackingUpdate(String accountName, String body, String id) {
 		long l = System.currentTimeMillis();
+		String url = null;
+		String consumerId = null;
+
+		if ("0894c9f0-0b6e-434a-8fba-7129a0414159".equals(id)) {
+			// PROD
+			consumerId = consumerIdProd;
+			url = urlProd;
+		} else if ("e18bb426-bb02-4e65-937a-2cfa2b6d2cfd".equals(id)) {
+			// STG
+			consumerId = consumerIdStg;
+			url = urlStg;
+		} else {
+			return Response.status(401)
+					.entity("Query param {id} in request is missing or not valid. Please contact Vulcan team").build();
+		}
+
 		try {
 			Map<String, String> headers = new HashMap<>();
 			headers.put("Accept", "application/json");
 			headers.put("Content-Type", "application/json");
-			headers.putAll(signatureGenerator.generateSignature(consumerIdStg));
+			headers.putAll(signatureGenerator.generateSignature(consumerId));
 
 			final HttpResponse response = httpClientPoolManager.doPost(url + accountName, headers, body.getBytes(),
 					HttpResponse.class);
@@ -54,7 +72,7 @@ public class ServiceImpl implements Service {
 		} catch (final Exception e) {
 			e.printStackTrace();
 		} finally {
-			System.out.println("Processed time.." + (System.currentTimeMillis() - l));
+			System.out.println("Processing time.." + (System.currentTimeMillis() - l));
 		}
 		return Response.serverError().build();
 	}
