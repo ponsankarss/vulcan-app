@@ -32,6 +32,11 @@ public class ServiceImpl implements Service {
 	private SignatureGenerator signatureGenerator;
 
 	@Override
+	public Response status() {
+		return Response.ok().entity("{\"status\":\"ok\"}").build();
+	}
+
+	@Override
 	public Response trackingUpdate(String accountName, String body) {
 		long l = System.currentTimeMillis();
 		try {

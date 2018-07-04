@@ -1,6 +1,7 @@
 package com.walmartlabs.services.api;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -15,11 +16,14 @@ import javax.ws.rs.core.Response;
  * @author psemman
  *
  */
-@Path("/carriers/easypost")
 public interface Service {
+	
+	@GET
+	@Path("/status")
+	Response status();
 
 	@POST
-	@Path("/{accountName}")
+	@Path("/carriers/easypost/{accountName}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	Response trackingUpdate(@PathParam("accountName") String accountName, final String body);
 }
