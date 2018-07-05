@@ -44,11 +44,11 @@ public class ServiceImpl implements Service {
 		String url = null;
 		String consumerId = null;
 
-		if ("0894c9f0-0b6e-434a-8fba-7129a0414159".equals(id)) {
+		if ("e18bb426-bb02-4e65-937a-2cfa2b6d2cfd".equals(id)) {
 			// PROD
 			consumerId = consumerIdProd;
 			url = urlProd;
-		} else if ("e18bb426-bb02-4e65-937a-2cfa2b6d2cfd".equals(id)) {
+		} else if ("0894c9f0-0b6e-434a-8fba-7129a0414159".equals(id)) {
 			// STG
 			consumerId = consumerIdStg;
 			url = urlStg;

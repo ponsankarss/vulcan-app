@@ -18,13 +18,14 @@ import javax.ws.rs.core.Response;
  *
  */
 public interface Service {
-	
+
 	@GET
 	@Path("/status")
 	Response status();
 
 	@POST
 	@Path("/carriers/easypost/{accountName}")
-	@Consumes({ MediaType.APPLICATION_JSON })
-	Response trackingUpdate(@PathParam("accountName") String accountName, final String body, @QueryParam("id") String id);
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
+	Response trackingUpdate(@PathParam("accountName") String accountName, final String body,
+			@QueryParam("id") String id);
 }
