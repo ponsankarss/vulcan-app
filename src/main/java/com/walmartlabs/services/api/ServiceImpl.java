@@ -69,6 +69,7 @@ public class ServiceImpl implements Service {
 				int statusCode = response.getStatusLine().getStatusCode();
 				return Response.status(statusCode).entity(IOUtils.toString(response.getEntity().getContent())).build();
 			}
+			//return Response.ok().build();
 		} catch (final Exception e) {
 			e.printStackTrace();
 		} finally {
